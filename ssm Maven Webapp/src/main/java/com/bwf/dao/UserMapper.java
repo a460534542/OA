@@ -13,6 +13,8 @@ public interface UserMapper {
 	void delete ( int id );
 	
 	void update ( User user );
+
+	User getUserByUsernameAndPassword(User user);
 	
 	
 }

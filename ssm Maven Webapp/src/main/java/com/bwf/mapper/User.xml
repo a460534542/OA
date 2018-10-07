@@ -11,9 +11,15 @@
         select * from `user` where user_id = #{id}
     </select>
     
+    <select id="getUserByUsernameAndPassword" 
+    	parameterType="com.bwf.entity.User" 
+    	resultType="com.bwf.entity.User">
+    	select * from `user` where username = #{username} and password = #{password}
+   	</select>
+    
     <!-- 增加一个 user -->
     <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="user_id">
-    	insert into `user` values ( null , #{username} , #{gender} , #{score}  )
+    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leaderId} , #{avater}  )
     </insert>
     
     <!-- 删除 一个 user -->
@@ -22,8 +28,13 @@
     </delete>
     
     <update id="update" parameterType="com.bwf.entity.User">
-    	update `user` set username = #{username} , gender = #{gender} , score = #{score}
-    	where user_id = #{id}
+    	update `user` set 
+    		username = #{username} , 
+    		password = #{password} , 
+    		nickname = #{nickname} ,
+    		leader_id = #{leaderId} ,
+    		avater = #{avater}
+    	where user_id = #{userId}
     </update>
     
    
