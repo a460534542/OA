@@ -18,7 +18,7 @@
   <dependencies>
      
      
-     <!-- junit单元测试 -->
+     <!-- junit单元测试   -->
      <dependency>  
          <groupId>junit</groupId>  
          <artifactId>junit</artifactId>  
