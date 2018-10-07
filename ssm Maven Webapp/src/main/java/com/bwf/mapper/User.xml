@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 对应 dao 中的 接口 -->
+<mapper namespace="com.bwf.dao.UserMapper">
+	
+  
+
+    <select id="getUserById" parameterType="int" resultType="com.bwf.entity.User">
+        select * from `user` where user_id = #{id}
+    </select>
+    
+    <!-- 增加一个 user -->
+    <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="user_id">
+    	insert into `user` values ( null , #{username} , #{gender} , #{score}  )
+    </insert>
+    
+    <!-- 删除 一个 user -->
+    <delete id="delete" parameterType="int">
+    	delete from user where user_id = #{id}
+    </delete>
+    
+    <update id="update" parameterType="com.bwf.entity.User">
+    	update `user` set username = #{username} , gender = #{gender} , score = #{score}
+    	where user_id = #{id}
+    </update>
+    
+   
+    
+    
+    
+    
+    
+
+</mapper>
