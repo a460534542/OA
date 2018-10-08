@@ -16,36 +16,77 @@
 
     <!-- 配置反射自动扫描的包 -->
     <context:component-scan base-package="com.bwf.*" />
+
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 映射类和方法 -->
     <mvc:annotation-driven />
-
+    
     <!-- 访问静态资源时，让请求通过  -->
     <mvc:default-servlet-handler />
     
+  
+    <!-- 注册拦截器 -->
+    <mvc:interceptors>
+    	
+    
+    	<!-- 登录拦截器,未登录用户访问页面，直接跳转到登录页 -->
+    	<mvc:interceptor>
+    		
+    		<!-- 拦截哪些路径中的请求 -->
+    		<mvc:mapping path="/*"/>
+    		<mvc:mapping path="/*/*"/>
+    		
+    		<!-- 不拦截的请求 -->
+    		<mvc:exclude-mapping path="/user/login"/>
+    		<mvc:exclude-mapping path="/user/doLogin"/>
+    		<mvc:exclude-mapping path="/**/fonts/*"/>
+	        <mvc:exclude-mapping path="/css/**"/>
+	        <mvc:exclude-mapping path="/js/**"/>
+	        <mvc:exclude-mapping path="/img/**"/>
+    		
+    		<!-- 定义拦截器使用的bean -->
+    		<bean class="com.bwf.interceptor.LoginInterceptor" ></bean>
+    	</mvc:interceptor>
+    	
+    	<!-- 权限拦截器 -->
+    	<mvc:interceptor>
+    		<mvc:mapping path="/*"/>
+    		<mvc:mapping path="/*/*"/>
+    		<mvc:exclude-mapping path="/user/login"/>
+    		<mvc:exclude-mapping path="/user/logout"/>    		
+    		<mvc:exclude-mapping path="/user/doLogin"/>
+    		<mvc:exclude-mapping path="/home"/>
+    		<mvc:exclude-mapping path="/error"/>
+    		<mvc:exclude-mapping path="/error/**"/>
+    		<mvc:exclude-mapping path="/index"/>
+    		<mvc:exclude-mapping path="/index/index"/>
+    		<mvc:exclude-mapping path="/**/fonts/*"/>
+	        <mvc:exclude-mapping path="/css/**"/>
+	        <mvc:exclude-mapping path="/js/**"/>
+	        <mvc:exclude-mapping path="/img/**"/>
+	        
+	        <bean class="com.bwf.interceptor.OperateInterceptor"></bean>
+    	</mvc:interceptor>
+    	
+    </mvc:interceptors>
+    
     <mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**"></mvc:resources>
     <mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**"></mvc:resources>
-    <mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**"></mvc:resources>
+    <mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**"></mvc:resources> 
+    
+
+
 	
     <!--文件上传解析器 -->
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>
 	
-    <!-- 视图解析器 -->
-    <bean
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/view/"></property>
-        <property name="suffix" value=".jsp"></property>
-        <property name="order" value="2" />
-    </bean>
-    
+
     <!-- FreeMarker视图解析器与属性配置 -->
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <!--是否启用缓存 -->
         <property name="cache" value="true" />
-        <!--自动添加到路径中的前缀 -->
-        <property name="prefix" value="" />
         <!--自动添加到路径中的后缀 -->
         <property name="suffix" value=".html" />
         <!--指定视图渲染类 -->

@@ -15,6 +15,8 @@ public interface UserMapper {
 	void update ( User user );
 
 	User getUserByUsernameAndPassword(User user);
+
+	User getMenusAndOperatesByUserId(int userId);
 	
 	
 }

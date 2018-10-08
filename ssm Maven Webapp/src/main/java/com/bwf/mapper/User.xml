@@ -4,6 +4,30 @@
 
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.bwf.dao.UserMapper">
+
+	<resultMap type="com.bwf.entity.User" id="simpleUser">
+		<id column="user_id" property="userId"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="avater" property="avater"/>
+	</resultMap>
+
+
+	<resultMap type="com.bwf.entity.User" id="nbUser">
+		<id column="user_id" property="userId"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="avater" property="avater"/>
+		
+		<collection property="menus" ofType="com.bwf.entity.Menu" resultMap="com.bwf.dao.MenuMapper.menu">
+			
+		</collection>
+		<collection property="operates" ofType="com.bwf.entity.Operate" resultMap="com.bwf.dao.OperateMapper.operate">
+			
+		</collection>
+	</resultMap>
 	
   
 
@@ -11,10 +35,27 @@
         select * from `user` where user_id = #{id}
     </select>
     
+    <!-- 用户登录 -->
     <select id="getUserByUsernameAndPassword" 
     	parameterType="com.bwf.entity.User" 
-    	resultType="com.bwf.entity.User">
+    	resultMap="simpleUser">
     	select * from `user` where username = #{username} and password = #{password}
+   	</select>
+   	
+   	<!-- 根据用户id获取菜单， 操作的集合 -->
+   	<select id="getMenusAndOperatesByUserId" parameterType="int" resultMap="nbUser">
+   		SELECT
+		user.* , menu.* , operate.*
+		FROM user		 
+		INNER JOIN user_role ON user_role.user_id = user.user_id
+		INNER JOIN role ON user_role.role_id = role.role_id
+		INNER JOIN role_permission ON role_permission.role_id = role.role_id
+		INNER JOIN permission ON role_permission.permission_id = permission.permission_id
+		left outer join permission_menu ON permission_menu.permission_id = permission.permission_id
+		left outer join menu ON permission_menu.menu_id = menu.menu_id
+		left outer join permission_operate on permission.permission_id = permission_operate.permission_id
+		left outer join operate on permission_operate.operate_id = operate.operate_id
+		WHERE user.user_id = #{userId}
    	</select>
     
     <!-- 增加一个 user -->

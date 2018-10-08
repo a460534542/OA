@@ -1,6 +1,6 @@
 package com.bwf.entity;
 
-
+import java.util.List;
 
 public class User {
 
@@ -14,7 +14,27 @@ public class User {
 	
 	private String avater;
 	
+	private List<Menu> menus;
+	
+	private List<com.bwf.entity.Operate> operates;
+	
 
+
+	public List<com.bwf.entity.Operate> getOperates() {
+		return operates;
+	}
+
+	public void setOperates(List<com.bwf.entity.Operate> operates) {
+		this.operates = operates;
+	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
 
 	public String getAvater() {
 		return avater;

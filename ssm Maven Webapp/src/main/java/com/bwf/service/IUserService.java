@@ -6,4 +6,6 @@ public interface IUserService {
 
 	
 	User login( User user );
+
+//	User getMenusByUserId(int userId);
 }

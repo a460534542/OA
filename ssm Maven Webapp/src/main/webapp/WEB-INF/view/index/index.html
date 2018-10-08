@@ -93,56 +93,25 @@
 	      	<img id="face" src="${rc.contextPath}/img/avaters/${user.avater}" class="img img-circle img-responsive img-thumbnail img-face" width="100px" style="margin-top: 20px;"/>
 	      	
 	      	<div style="margin-top: 10px; color: #ccc;">
-	      	    <img src="img/j15.png" id="face-switch" height="25px" class="img img-circle hand switch-on" style="opacity: 0.7;"/>&nbsp;&nbsp;博为峰UI框架
+	      	    <img src="img/j15.png" id="face-switch" height="25px" class="img img-circle hand switch-on" style="opacity: 0.7;"/>&nbsp;&nbsp;${user.nickname}
 	      	</div>
 	      	
 	      	<ul class="list-group" style="margin-top: 20px;">
 	      		<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_home.html" target="iframe-index" class="full-link list-group-item-url list-group-item-link list-group-item-link-active"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;后台首页</a></li>
 	      		
-	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;复合表单 <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
+	      		<#list user.menus as menu>
+	      		<#if menu.pid=null>
+	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;${menu.menuName} <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
 	      		<ul class="list-group nomargin nopadding noborder" style="display: none;">
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_form_1.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;普通表单</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_form_2.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;选项卡表单</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_form_3.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;分步选项卡</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_4.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面四</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_5.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面五</a></li>
+	      			<#list user.menus as menu2>
+	      			<#if menu2.pid=menu.menuId>
+	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="${menu2.menuUrl}" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;${menu2.menuName}</a></li>
+	      			</#if>
+	      			</#list>
 	      		</ul>
+	      		</#if>
+	      		</#list>
 	      		
-	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;复合表格 <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
-	      		<ul class="list-group nomargin nopadding noborder" style="display: none;">
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_1.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;普通表格</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_2.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;条件搜索表格</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_3.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面三</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_4.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面四</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_5.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面五</a></li>
-	      		</ul>
-	      		
-	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;树形结构 <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
-	      		<ul class="list-group nomargin nopadding noborder" style="display: none;">
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_1.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面一</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_2.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面二</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_3.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面三</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_4.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面四</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_5.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面五</a></li>
-	      		</ul>
-	      		
-	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面 <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
-	      		<ul class="list-group nomargin nopadding noborder" style="display: none;">
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_1.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面一</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_2.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面二</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_3.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面三</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_4.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面四</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_5.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面五</a></li>
-	      		</ul>
-	      		
-	      		<li class="list-group-item list-group-item-slider  hand nopadding nomargin noborder"><a href="javascript:void(0)" class="full-link list-group-item-link list-group-item-link-parent"><img src="img/57323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;邮箱相关 <img src="img/j14.png" height="20px" class="img  img-circle img-arrow" style="position: absolute; right: 10px; top: 10px; opacity: 0.7;"/></a></li>
-	      		<ul class="list-group nomargin nopadding noborder" style="display: none;">
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_1.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面一</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_2.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面二</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_3.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面三</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_4.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面四</a></li>
-	      			<li class="list-group-item list-group-item-slider hand nopadding nomargin noborder"><a href="javascript:void(0)" id="admin_table_5.html" target="iframe-index" class="full-link list-group-item-link-small list-group-item-url"><img src="img/48323.png" height="20px" class="img img-circle"/>&nbsp;&nbsp;表格页面五</a></li>
-	      		</ul>
 	      		
 	      	</ul>
 	      	
