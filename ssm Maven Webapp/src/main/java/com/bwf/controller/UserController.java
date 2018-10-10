@@ -104,6 +104,8 @@ public class UserController {
 		}
 		pagesize=10;
 		
+		modelMap.addAttribute("page",page);
+		
 		Integer allCount=userService.getAllUserCount();
 		
 		Integer allPages=(int)Math.ceil(allCount*1.0/pagesize);
@@ -120,7 +122,7 @@ public class UserController {
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable Integer id){
 		userService.delete(id);
-		return "redirect:user/show";
+		return "redirect:/user/show";
 	}
 	
 	

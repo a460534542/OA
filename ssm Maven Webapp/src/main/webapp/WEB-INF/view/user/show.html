@@ -12,12 +12,21 @@
 		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
 		<script type="text/javascript">
-		$(function(){
-			$(".delete-user").click(function(){
-				var id=$(this).prev().val();
-				location.herf='user/delete/'+id;
-				}); 
-		});			
+			$(function(){
+				$(".delete-user").click(function(){
+					var id=$(this).prev().val();
+					location.href='${rc.contextPath}/user/delete/'+id;
+					}); 
+					
+				$("#prevPage").click(function(){
+					
+					location.href="${rc.contextPath}/user/show?page="+(${page}-1);
+				});	
+				
+				$("#nextPage").click(function(){
+					location.href="${rc.contextPath}/user/show?page="+(${page}+1);
+				});	
+			});			
 		</script>
 	</head>
 	<body>
@@ -89,7 +98,7 @@
 										<span class="hidden-xs hidden-sm"> 首 页 </span>
 										<span class="hidden-lg hidden-md"> |&lt; </span>
 									</button>
-									<button type="button" class="btn btn-darkgreen">
+									<button type="button" class="btn btn-darkgreen" id="prevPage">
 										<span class="hidden-xs hidden-sm"> 上一页 </span>
 										<span class="hidden-lg hidden-md"> &lt;&lt; </span>
 									</button>
@@ -126,8 +135,8 @@
 									<button type="button" class="btn btn-default hidden-xs hidden-sm">
 										.…
 									</button>
-									<button type="button" class="btn btn-darkgreen">
-										<span class="hidden-xs hidden-sm"> 下一页 </span>
+									<button type="button" class="btn btn-darkgreen" id="nextPage">
+										<span class="hidden-xs hidden-sm" > 下一页 </span>
 										<span class="hidden-lg hidden-md"> &gt;&gt; </span>
 									</button>
 									<button type="button" class="btn btn-darkgreen">
