@@ -11,6 +11,10 @@
 		<result column="password" property="password"/>
 		<result column="nickname" property="nickname"/>
 		<result column="avater" property="avater"/>
+		<association property="leader" 
+			javaType="com.bwf.entity.User" 
+			column="leader_id" 
+    		select="getUserById" ></association>
 	</resultMap>
 
 
@@ -57,6 +61,22 @@
 		left outer join operate on permission_operate.operate_id = operate.operate_id
 		WHERE user.user_id = #{userId}
    	</select>
+   	
+   	<!-- 获取所有用户的数据 -->
+   	<select id="getAllUser" resultMap="simpleUser">
+   		select * from user; 
+   	</select>
+   	
+   	<!-- 查询用户总条数 -->
+   	<select id="getAllUserCount" resultType="int">
+   		select count(*) from user;
+   	</select>
+   	
+   	<!-- 查询用户通过页码 -->
+    <select id="getAllUserBypage" parameterType="int" resultMap="simpleUser">
+    	select * from user  limit #{p},#{pagesize}
+    </select>
+    
     
     <!-- 增加一个 user -->
     <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="user_id">

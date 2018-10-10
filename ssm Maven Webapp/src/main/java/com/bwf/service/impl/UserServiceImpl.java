@@ -1,5 +1,7 @@
 package com.bwf.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,31 @@ public class UserServiceImpl implements IUserService {
 		}
 		return u;
 	}
+
+	@Override
+	public List<User> getAllUser() {
+		// TODO Auto-generated method stub
+		return userMapper.getAllUser();
+	}
+
+	@Override
+	public List<User> getAllUserByPage(Integer page, Integer pagesize) {
+		// TODO Auto-generated method stub
+		return userMapper.getAllUserBypage((page-1)*pagesize,pagesize);
+	}
+
+	@Override
+	public Integer getAllUserCount() {
+		// TODO Auto-generated method stub
+		return userMapper.getAllUserCount();
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		userMapper.delete(id);	
+	}
+
 
 //	@Override
 //	public User getMenusByUserId(int userId) {

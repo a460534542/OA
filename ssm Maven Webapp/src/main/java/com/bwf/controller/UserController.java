@@ -1,6 +1,8 @@
 package com.bwf.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -91,4 +94,38 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 
+	
+	//员工管理show 方法
+	@GetMapping("show")
+	public String show(Integer page,Integer pagesize,ModelMap modelMap){
+		//List<User>allUsers=userService.getAllUser();
+		if(page==null){
+			page=1;
+		}
+		pagesize=10;
+		
+		Integer allCount=userService.getAllUserCount();
+		
+		Integer allPages=(int)Math.ceil(allCount*1.0/pagesize);
+		
+		modelMap.addAttribute("allPages",allPages);
+				
+		List<User>allUsersByPage=userService.getAllUserByPage(page,pagesize);
+		
+		modelMap.addAttribute("allUsersByPage",allUsersByPage);
+		
+		return "user/show";
+	}
+	
+	@GetMapping("delete/{id}")
+	public String delete(@PathVariable Integer id){
+		userService.delete(id);
+		return "redirect:user/show";
+	}
+	
+	
+	
+	
+	
+	
 }

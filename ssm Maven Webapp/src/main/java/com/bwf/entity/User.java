@@ -18,7 +18,16 @@ public class User {
 	
 	private List<com.bwf.entity.Operate> operates;
 	
+	private User leader;
 
+
+	public User getLeader() {
+		return leader;
+	}
+
+	public void setLeader(User leader) {
+		this.leader = leader;
+	}
 
 	public List<com.bwf.entity.Operate> getOperates() {
 		return operates;
