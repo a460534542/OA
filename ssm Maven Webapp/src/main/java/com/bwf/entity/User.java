@@ -2,14 +2,19 @@ package com.bwf.entity;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class User {
 
 	private int userId;
 	
+	@NotNull(message="用户名不能为空")
 	private String username;
-	
+	@NotNull(message="密码不能为空")
 	private String password;
 	
+	@Pattern(regexp="^[\u4e00-\u9fa5]{2,4}$",message="只能为2到4位中文汉字")
 	private String nickname;
 	
 	private String avater;

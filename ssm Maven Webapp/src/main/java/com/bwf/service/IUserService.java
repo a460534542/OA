@@ -2,6 +2,8 @@ package com.bwf.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.bwf.entity.User;
 
 public interface IUserService {
@@ -20,6 +22,12 @@ public interface IUserService {
 
 
 	void delete(Integer id);
+
+
+	void delete(Integer[] id);
+
+
+	void add(@Valid User user);
 
 	
 

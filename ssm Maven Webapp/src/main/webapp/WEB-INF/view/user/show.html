@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>BWFUIFramework</title>
+		<title>上海博为峰软件技术股份有限公司</title>
 		<link rel="stylesheet" href="${rc.contextPath}/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="${rc.contextPath}/css/animate.min.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js" ></script>
@@ -11,38 +11,73 @@
 		<script type="text/javascript" src="${rc.contextPath}/js/wow.js" ></script>
 		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
+		<style>
+			html {
+            background: url(${rc.contextPath}/img/bg5.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        </style>
 		<script type="text/javascript">
 			$(function(){
-				$(".delete-user").click(function(){
-					var id=$(this).prev().val();
-					location.href='${rc.contextPath}/user/delete/'+id;
-					}); 
-					
+				
+				<!-- 上一页 -->	
 				$("#prevPage").click(function(){
-					
+			
 					location.href="${rc.contextPath}/user/show?page="+(${page}-1);
 				});	
 				
+				<!-- 下一页 -->
 				$("#nextPage").click(function(){
 					location.href="${rc.contextPath}/user/show?page="+(${page}+1);
 				});	
+				
+				<!-- 触发是否删除 -->
+				var id;
+				$('.delete-user').click(function(){
+					id=$(this).prev().val();
+					
+					$('#openModal').trigger('click');
+					
+					<!-- 删除 -->
+					$('#doDelete').click(function(){
+							location.href = '${rc.contextPath}/user/delete/' + id ;
+					});
+				
+				});
+				
+				<!-- 批量删除 -->
+				$('#deleteMulti').click(function(){
+					$('#openModal').trigger('click');
+					<!-- 删除 -->
+					$('#doDelete').click(function(){
+						
+						if($('.num').val()!=1){
+							$('#form1').submit();
+						}			
+					});
+				});
+				<!-- 新增员工 -->
+				$('#addUser').click(function(){
+					location.href='${rc.contextPath}/user/add';
+				});								
+				
 			});			
 		</script>
 	</head>
 	<body>
 			
-			<form action="" method="POST" role="form">
-			
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					
 					员工管理
 					<div class="btn-group btn-group-sm pull-right">
-					<button type="button" class="btn btn-default">
+					<button type="button" class="btn btn-default " id="deleteMulti">
 						<img src="${rc.contextPath}/img/7.png" height="16px"/>
 						&nbsp;&nbsp;批量删除
 					</button>
-					<button type="button" class="btn btn-default">
+					<button type="button" class="btn btn-default" id="addUser">
 						<img src="${rc.contextPath}/img/plus.png" height="16px"/>
 						&nbsp;&nbsp;添加数据
 					</button>
@@ -66,25 +101,28 @@
 								</tr>
 							</thead>
 							<tbody>
+								<form id="form1" action="${rc.contextPath}/user/delete" method="get">
 								<#list allUsersByPage as user1>
-								<tr>
-									<td align="center" class="td-checkbox"><input type="checkbox" name="id"/></td>
-									<td>${user1.userId}</td>
-									<td>${user1.username}</td>
-									<td>${user1.nickname}</td>
-									<td>${user1.leader.nickname}</td>
-									<td><img style="height:30px;" class="image image-responsive" src="${rc.contextPath}/img/avaters/${user1.avater}"/></td>
-									<td width="120px">
-										<span class="btn-group btn-group-xs" >
-											<button type="button" class="btn btn-default">查看</button>
-											<button type="button" class="btn btn-default">编辑</button>
-											<input type="hidden" value="${user1.userId}">
-											<button type="button" class="btn btn-danger delete-user">删除</button>
-										</span>
-									</td>
-								</tr>
+									<tr>
+										<td align="center" class="td-checkbox">
+										<input type="checkbox" class="num" name="id" value="${user1.userId}"/>
+										</td>
+										<td>${user1.userId}</td>
+										<td>${user1.username}</td>
+										<td>${user1.nickname}</td>
+										<td>${user1.leader.nickname}</td>
+										<td><img style="height:30px;" class="image image-responsive" src="${rc.contextPath}/img/avaters/${user1.avater}"/></td>
+										<td width="120px">
+											<span class="btn-group btn-group-xs" >
+												<button type="button" class="btn btn-default">查看</button>
+												<button type="button" class="btn btn-default">编辑</button>
+												<input type="hidden"  value="${user1.userId}">
+												<button type="button" class="btn btn-danger delete-user">删除</button>
+											</span>
+										</td>
+									</tr>
 								</#list>
-								
+								</form>
 							</tbody>
 							<tfoot>
 								
@@ -157,19 +195,29 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						
-						
-						
-					
-					
-					
-					
+						</div>	
 				</div>
 			</div>
-			
-		</form>
-		<div style="height: 80px;"></div>
+						<!-- 按钮触发模态框 -->
+			<input id="openModal" type="hidden" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" value="开始演示模态框"/>
+			<!-- 模态框（Modal） -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title" id="myModalLabel">确认是否删除？</h4>
+			            </div>
+			            <div id="errorMessage" class="modal-body">删除后无法找到数据！</div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal" id="doDelete">确认</button>
+			                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>			
+			<div style="height: 80px;"></div>
+		
 	</body>
 </html>
 

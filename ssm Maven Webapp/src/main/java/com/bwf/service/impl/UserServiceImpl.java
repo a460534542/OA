@@ -2,6 +2,8 @@ package com.bwf.service.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import com.bwf.controller.UserController;
 import com.bwf.dao.UserMapper;
 import com.bwf.entity.User;
 import com.bwf.service.IUserService;
+import com.bwf.utils.StringUtils;
+
+import freemarker.template.utility.StringUtil;
 
 
 @Service
@@ -57,6 +62,19 @@ public class UserServiceImpl implements IUserService {
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		userMapper.delete(id);	
+	}
+
+	@Override
+	public void delete(Integer[] id) {
+		for(Integer i:id){
+			userMapper.delete(i);
+		}
+	}
+
+	@Override
+	public void add(@Valid User user) {
+		user.setPassword(StringUtils.md5(user.getPassword()));
+		userMapper.add(user);
 	}
 
 

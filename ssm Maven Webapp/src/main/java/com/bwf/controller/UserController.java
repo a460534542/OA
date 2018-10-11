@@ -4,12 +4,14 @@ package com.bwf.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,21 +64,6 @@ public class UserController {
 		} else {
 			// 登录成功
 			logger.info("登录成功");
-			
-			//logger.warn(  loginUser.getUserId() + "" );
-			
-			// 查询 菜单集合
-			//User userWithMenus = userService.getMenusByUserId( loginUser.getUserId() );
-//
-//			
-//			logger.warn(
-//					"{} , {} , {} , {}" ,
-//					userWithMenus.getUserId() ,
-//					userWithMenus.getUsername() , 
-//					userWithMenus.getNickname() ,
-//					userWithMenus.getAvater()
-//			);
-			
 			// 写入 session 
 			session.setAttribute("user", loginUser );
 
@@ -85,6 +72,7 @@ public class UserController {
 		}
 		
 	}
+	
 
 
 	// 退出登录
@@ -99,7 +87,7 @@ public class UserController {
 	@GetMapping("show")
 	public String show(Integer page,Integer pagesize,ModelMap modelMap){
 		//List<User>allUsers=userService.getAllUser();
-		if(page==null){
+		if(page==null||page==0){
 			page=1;
 		}
 		pagesize=10;
@@ -118,16 +106,45 @@ public class UserController {
 		
 		return "user/show";
 	}
-	
+	//删除单个员工方法
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable Integer id){
 		userService.delete(id);
 		return "redirect:/user/show";
 	}
+	//删除多个员工方法
+	@GetMapping("delete")
+	public String delete(Integer[]id){
+		
+		userService.delete(id);
+		
+		return "redirect:/user/show";
+	}
+	//显示新增员工填选界面
+	@GetMapping("add")
+	public String addUser(ModelMap modelMap){
+		
+		modelMap.addAttribute("allUsers", userService.getAllUser());
+		
+		return "user/add";
+	}
 	
-	
-	
-	
+	//新增员工
+	@PostMapping("doAdd")
+	public String doAddUser(@Valid User user,BindingResult bindingResult,ModelMap modelMap){
+		
+		if(bindingResult.hasErrors()){
+			modelMap.addAttribute("errors", bindingResult.getAllErrors() );
+			return "redirect:/user/add";
+		}else{
+			// 执行添加功能 
+			userService.add( user );
+			return "redirect:/user/show";
+		}
+		
+		
+		
+	}
 	
 	
 }

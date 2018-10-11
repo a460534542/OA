@@ -80,7 +80,7 @@
     
     <!-- 增加一个 user -->
     <insert id="add" parameterType="com.bwf.entity.User" useGeneratedKeys="true" keyProperty="user_id">
-    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leaderId} , #{avater}  )
+    	insert into `user` values ( null , #{username} , #{password} , #{nickname} , #{leader.userId} , #{avater}  )
     </insert>
     
     <sql id="check0">set FOREIGN_KEY_CHECKS=0;</sql>
