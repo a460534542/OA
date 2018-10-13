@@ -77,6 +77,12 @@ public class UserServiceImpl implements IUserService {
 		userMapper.add(user);
 	}
 
+	@Override
+	public User getUserById(Integer id) {
+		userMapper.getUserById(id);
+		return null;
+	}
+
 
 //	@Override
 //	public User getMenusByUserId(int userId) {

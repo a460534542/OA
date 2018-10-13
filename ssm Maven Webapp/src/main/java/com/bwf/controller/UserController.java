@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.bwf.entity.Menu;
 import com.bwf.entity.User;
 import com.bwf.service.IUserService;
 import com.bwf.utils.StringUtils;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
 @Controller
 @RequestMapping("user")
@@ -121,7 +123,7 @@ public class UserController {
 		return "redirect:/user/show";
 	}
 	//显示新增员工填选界面
-	@GetMapping("add")
+	@GetMapping("add/{id}")
 	public String addUser(ModelMap modelMap){
 		
 		modelMap.addAttribute("allUsers", userService.getAllUser());
@@ -140,11 +142,29 @@ public class UserController {
 			// 执行添加功能 
 			userService.add( user );
 			return "redirect:/user/show";
-		}
-		
-		
-		
+		}	
 	}
+	
+	
+	//更新员工资料
+	@GetMapping("update/{id}")
+	public String update(@PathVariable Integer id,ModelMap modelMap){
+		User user=userService.getUserById(id);
+		List<User> allUsers=userService.getAllUser();
+		modelMap.addAttribute("user1", user);
+		modelMap.addAttribute("allUsers", allUsers);
+		return "user/update";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

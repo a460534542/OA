@@ -29,6 +29,9 @@ public interface IUserService {
 
 	void add(@Valid User user);
 
+
+	User getUserById(Integer id);
+
 	
 
 //	User getMenusByUserId(int userId);
