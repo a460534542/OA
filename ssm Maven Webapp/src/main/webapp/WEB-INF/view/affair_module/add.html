@@ -12,6 +12,15 @@
 		<link rel="stylesheet" href="${rc.contextPath}/css/global.css" />
 		<script type="text/javascript" src="${rc.contextPath}/js/global.js" ></script>
 		<script type="text/javascript">
+			function getData(){
+				$('#chainData').empty();
+				$('#chain').find('.chain-user').each(function(){
+					var check = '<input type="checkbox" checked="checked" name="approverId" value="'+ $(this).attr('data-user-id') +'"/>'
+					$('#chainData').append ( check );			
+				})
+			}
+		
+			
 			$( function(){
 				$('.page2').on( 'click' , '.add-option' , function(){
 					// 按钮所在的该行的 div
@@ -26,6 +35,29 @@
 						// 提示不能再少了
 					}
 				} );
+				
+				//增加审批链功能
+				$('.btn-user').click(function(){
+					// ui部分
+					var div = '<div style="border:1px solid #337ab7;border-radius: 3px;padding:5px;margin:5px" class="col-md-2"> '								        
+				    	+ '<img class="remove-user" style="width:24px;float:right;cursor:pointer;" src="${rc.contextPath}/img/d12.png"/>'
+				    	+ '<div style="clear:both;"></div>'
+				        + '<input data-user-id="'+ $(this).attr('data-user-id') +'" type="button" class="chain-user btn btn-primary" value="'+ $(this).html() +'"/>'
+				        + '<img style="width:24px;" src="${rc.contextPath}/img/right.png"/>'
+					    + '</div> ';
+					    
+					 $('#chain').append ( div );
+					 //整合传输数据
+					 getData();		
+				});
+				//删除审批链
+				$('#chain').on('click','.remove-user' ,function(){
+					$(this).parent().remove();
+					//整合传输数据
+					getData();		
+				})
+				
+				
 			
 			} );
 		
@@ -39,7 +71,7 @@
 				</div>
 				<div class="panel-body">
 					
-					<form class="form-horizontal" action="" method="post" role="form">
+					<form class="form-horizontal" action="${rc.contextPath}/affair_module/doAdd" method="post" role="form">
 					<div class="panel panel-default panel-step">
 						
 						<div class="panel-heading panel-step-head" style="background-color: transparent; ">
@@ -108,21 +140,33 @@
 									
 									<div class="col-md-10">										
 										<#list department.allUsers as user>
-											<button type="button" class="btn btn-xs btn-primary">${user.nickname}</button>
+											<button data-user-id="${user.userId}" type="button"  class="btn btn-xs btn-primary btn-user">${user.nickname}</button>
 										</#list>	
 									</div>
 								</div>
 							</#list>
-							
-							
-							
+							<div class="row" style="border-bottom:1px dotted gray;margin-bottom:2px;padding-bottom:2px;">
+								<div class="col-md-2">
+									所在部门：
+								</div>					
+								<div class="col-md-10">				
+									<button data-user-id="-1" type="button" class="btn btn-xs btn-primary btn-user">直属上级</button>
+
+								</div>
+							</div>
 							
 							<!-- 展示审批流程部分 -->
+							<div id="chain" class="row">
+							
+							</div>
+							<div id="chainData" style="display:none;">
+								
+							</div>
+							
+							
+							
 							
 						</div>
-						
-					
-						
 						
 						<div class="panel-footer panel-tab-footer">
 							<div class="btn-group">
