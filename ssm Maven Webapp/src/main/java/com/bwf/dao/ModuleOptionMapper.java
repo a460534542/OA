@@ -10,4 +10,6 @@ public interface ModuleOptionMapper {
 
 	void add(@Param("moduleOptions") List<ModuleOption> moduleOptions);
 
+	List<ModuleOption> getModuleOptionsByAffairModuleId(Integer id);
+
 }

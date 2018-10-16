@@ -64,4 +64,10 @@ public class AffairModuleServiceImpl implements IAffairModuleService {
 		
 	}
 
+	@Override
+	public List<AffairModule> getAll() {
+		
+		return affairModuleMapper.getAll();
+	}
+
 }

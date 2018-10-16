@@ -18,5 +18,8 @@
 		)
 	</insert>
 
+	<select id="getAll" resultMap="affairModule">
+		select * from affair_module;
+	</select>
 
 </mapper>

@@ -54,23 +54,24 @@
 							</thead>
 							<tbody>
 								<form id="form1" action="/oa/affair_module/delete" method="get">
-								<tr>
-									<td align="center" class="td-checkbox">
-										<input type="checkbox" name="id" value="1"/>
-									</td>
-									<td>1</td>
-									<td>请假申请单</td>
-									
-									<td width="120px">
-										<span class="btn-group btn-group-xs" >
-											<button type="button" class="btn btn-default">查看</button>
-											<button type="button" class="btn btn-default edit-user">编辑</button>
-											<input type="hidden" value="1"/>
-											<button type="button" class="btn btn-danger delete-user">删除</button>
-										</span>
-									</td>
-								</tr>
-								
+								<#list allAffairModules as affairModule>
+									<tr>
+										<td align="center" class="td-checkbox">
+											<input type="checkbox" name="id" value="1"/>
+										</td>
+										<td>${affairModule.affairModuleId}</td>
+										<td>${affairModule.affairModuleName}</td>
+										
+										<td width="120px">
+											<span class="btn-group btn-group-xs" >
+												<button type="button" class="btn btn-default">查看</button>
+												<button type="button" class="btn btn-default edit-user">编辑</button>
+												<input type="hidden" value="1"/>
+												<button type="button" class="btn btn-danger delete-user">删除</button>
+											</span>
+										</td>
+									</tr>
+								</#list>
 								</form>
 							</tbody>
 							<tfoot>

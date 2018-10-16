@@ -5,8 +5,8 @@
 <!-- 对应 dao 中的 接口 -->
 <mapper namespace="com.bwf.dao.ModuleOptionMapper">
 
-	<resultMap type="com.bwf.entity.AffairModule" id="affairModule">
-		<id column="module_option_id" property="ModuleOptionId"/>
+	<resultMap type="com.bwf.entity.ModuleOption" id="moduleOption">
+		<id column="module_option_id" property="moduleOptionId"/>
 		<result column="affair_module_id" property="affairModuleId"/>
 		<result column="option_id" property="optionId"/>
 		<result column="order" property="order"/>
@@ -23,6 +23,11 @@
 			) 
 		</foreach>
 	</insert>
+	
+	<select id="getModuleOptionsByAffairModuleId" parameterType="int" resultMap="moduleOption">
+		select * from module_option where affair_module_id = #{id}
+	</select>
+	
 
 
 </mapper>

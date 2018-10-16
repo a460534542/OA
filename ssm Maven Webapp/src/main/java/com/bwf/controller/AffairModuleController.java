@@ -1,5 +1,7 @@
 package com.bwf.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,9 @@ public class AffairModuleController {
 	IAffairModuleService affairModuleService;
 	
 	@GetMapping("show")
-	public String show(){
-		
+	public String show(ModelMap modelMap){
+		List<AffairModule>allAffairModules=affairModuleService.getAll();
+		modelMap.addAttribute("allAffairModules", allAffairModules);
 		return "affair_module/show";
 	}
 	
@@ -51,6 +54,6 @@ public class AffairModuleController {
 		affairModuleService.add( affairModule ,optionName , optionId ,  optionData, approverId );
 		
 		
-		return "redirect: /affair_module/show";
+		return "redirect:/affair_module/show";
 	}
 }
