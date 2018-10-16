@@ -14,11 +14,12 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#btnSubmit').click(function(){
-					var html = $('#formAffair').html();
-					
-					location.href = "${rc.contextPath}/affair/doAdd?affairModuleId="+ ${affairModuleId} +"&html=" + html;
-				
+					$('#affairModuleId').val(${affairModuleId});
+					$('#html').val($('#formAffair1').html());
+					 $('#formAffair2').submit();
 				});
+			
+					
 			});
 		
 		</script>
@@ -29,10 +30,14 @@
 				<div class="panel-heading">
 					<button onclick="history.back();" type="button" class="btn btn-default btn-back btn-sm"> 返 回 </button>&nbsp;&nbsp;创建新公文
 				</div>
+				
 				<div class="panel-body">
-					
+						<div style="display:none;"><form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair2">
+								<input id="affairModuleId" name="affairModuleId" type="text"/>
+								<input id="html" name="html" type="text"/>
+						</form></div> 
 					<!-- 新增公文 -->
-					<form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair" class="form-horizontal" role="form">
+					<form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair1" class="form-horizontal" role="form">
 					
 					  <#list moduleOptions as moduleOption>
 						  <div class="form-group">
@@ -63,7 +68,7 @@
 					    	<#elseif moduleOption.optionId=4> <!-- 单选 -->
 					    		<label for="" class="col-sm-2 control-label">${moduleOption.optionName}</label>
 						    	<div class="col-sm-10">		
-						    		<#list moduleOption.optionData?split(",") as data>						   
+						    		<#list moduleOption.optionData?split("，") as data>						   
 								    <label class="radio-inline">
 								        <input type="radio"  value="" checked> ${data}
 								    </label>
