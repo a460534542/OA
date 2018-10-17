@@ -32,7 +32,7 @@
 							<div class="col-md-6 text-right">
 								<input type="submit" class="btn btn-success" value="新增"/>
 								<select name="affairModuleId" class="form-control">
-									<#list allAffairModules as affairModule>
+									<#list affairModules as affairModule>
 										<option value="${affairModule.affairModuleId}">${affairModule.affairModuleName}</option>
 									</#list>
 								</select>
@@ -40,7 +40,46 @@
 						</div>
 						
 						<div class="panel-body panel-tab-body">
-							第一页
+							<hr/>
+							<table class="table table-bordered table-condensed table-hover table-responsive cbx-group">
+							<thead>
+								<tr>
+								<th class="td-checkbox"><input type="checkbox" class="cbx-all"/></th>
+								<th>公文编号</th>
+								<th>公文类型</th>
+								<th>发起人</th>
+								<th>公文状态</th>					
+								<th>操作选项</th>
+								</tr>
+							</thead>
+								<tbody>
+									<#list affairByMe as affair1>
+									<tr align="center">
+										<td align="center" class="td-checkbox"><input type="checkbox" name="id"/></td>
+										<td>${affair1.affairId}</td>
+										<td>${affair1.affairModule.affairModuleName}</td>
+										<td>${affair1.proposer.nickname}</td>
+										<td>
+												<!-- 公文的审批状态 -->
+											<#if affair1.affairStatus=0>
+												<span class="label label-default">审批中</span>
+											<#elseif affair1.affairStatus=1>
+												<span class="label label-success">审批通过</span>
+											<#elseif affair1.affairStatus=2>
+												<span class="label label-danger">审批驳回</span>		
+											</#if>
+										</td>
+										<td width="120px">
+											<span class="btn-group btn-group-xs" >
+												<button onclick="location.href='${rc.contextPath}/affair/detail/${affair1.affairId}';" type="button" class="btn btn-default">查看</button>
+											</span>
+										</td>
+									</tr>								
+									</#list>
+								</tbody>
+							
+							</table>
+
 						</div>						
 						
 						<div class="panel-body panel-tab-body">

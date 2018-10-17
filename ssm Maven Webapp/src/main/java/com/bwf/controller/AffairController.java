@@ -31,7 +31,11 @@ public class AffairController {
 	com.bwf.service.IAffairService affairService;
 
 	@GetMapping("show")
-	public String show(ModelMap modelMap){
+	public String show(ModelMap modelMap,HttpSession httpSession){
+		User currentUser = (User) httpSession.getAttribute("user");
+		
+		List<Affair> affairByMe =  affairService.getAffairByMe( currentUser );
+		modelMap.addAttribute("affairByMe", affairByMe);
 		List<AffairModule>allAffairModules=affairModuleService.getAll();
 		modelMap.addAttribute("allAffairModules", allAffairModules);
 		

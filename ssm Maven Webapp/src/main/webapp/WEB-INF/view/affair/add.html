@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,12 +13,44 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#btnSubmit').click(function(){
-					$('#affairModuleId').val(${affairModuleId});
-					$('#html').val($('#formAffair1').html());
-					 $('#formAffair2').submit();
-				});
-			
+					$('#formAffair1').find( 'input' ).each( function(i,e){
+						var val = $(e).val();
+						if(  $(e).attr("type") == "checkbox" || $(e).attr("type") == "radio" ) {
+							if ( $(e).prop('checked') ) {
+								$(e).attr('checked' , 'checked');	
+								$(e).attr('disabled' , 'disabled');							
+							}
+						} else {
+							if ( val.trim() != '' ) {
+								var clone = $(e).clone();
+								clone.attr('value' , $(e).val());															
+								$(e).after( clone ).remove();	
+								clone.attr('disabled' , 'disabled');
+							}
+						}
+					} );
+					$('#formAffair1').find('textarea').each( function(i,e){
+						var clone = $(e).clone();
+						clone.html ( $(e).val() );						
+						$(e).after( clone ).remove();
+						clone.attr('disabled' , 'disabled');						
+					} );
 					
+					$('#formAffair1').find('select').each( function(i,e){
+						$(e).find('option').each( function(i1,e1) {
+							if( $(e1).prop('selected') ) {
+								$(e1).attr('selected' , 'selected');								
+							}
+						});
+						$(e).attr('disabled' , 'disabled');		
+					});
+					
+					var html1 = $('#formAffair1').html();
+					 $('#affairModuleId').val(${affairModuleId});	
+					 $('#html').val(html1);
+				     $('#formAffair2').submit(); 
+				});
+						
 			});
 		
 		</script>
@@ -32,12 +63,14 @@
 				</div>
 				
 				<div class="panel-body">
-						<div style="display:none;"><form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair2">
+					<div style="display:none;">
+						<form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair2">
 								<input id="affairModuleId" name="affairModuleId" type="text"/>
 								<input id="html" name="html" type="text"/>
-						</form></div> 
+						</form>
+					</div> 
 					<!-- 新增公文 -->
-					<form action="${rc.contextPath}/affair/doAdd" method="post" id="formAffair1" class="form-horizontal" role="form">
+					<form  id="formAffair1" class="form-horizontal" role="form">
 					
 					  <#list moduleOptions as moduleOption>
 						  <div class="form-group">

@@ -29,6 +29,12 @@
 		)
 	</insert>
 	
+	<select id="getAffairByMe" parameterType="com.bwf.entity.User" resultMap="affair">
+		select affair.* , affair_module.affair_module_name , user.nickname from affair 
+		inner join affair_module on affair.affair_module_id = affair_module.affair_module_id
+		inner join user on affair.proposer = user.user_id
+		where user.user_id = #{userId}	
+	</select>
 
 
 </mapper>
