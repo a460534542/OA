@@ -11,4 +11,6 @@ public interface AffairMapper {
 
 	List<Affair> getAffairByMe(User currentUser);
 
+	Affair getAffairDetailByAffairId(Integer id);
+
 }

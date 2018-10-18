@@ -11,4 +11,6 @@ public interface IAffairService {
 
 	List<Affair> getAffairByMe(User currentUser);
 
+	Affair getAffairDetailByAffairId(Integer id);
+
 }

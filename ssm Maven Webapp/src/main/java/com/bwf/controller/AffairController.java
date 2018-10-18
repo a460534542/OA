@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -58,11 +59,19 @@ public class AffairController {
 		affairModule.setAffairModuleId(affairModuleId);
 		affair.setAffairModule(affairModule);
 		affair.setAffairData(html);
-		affair.setProposer(  (User)session.getAttribute("user") );
+		affair.setProposer( (User)session.getAttribute("user") );
 		affair.setAffairStatus(0);
-		
-		
 		affairService.add( affair );
 		return "redirect:/affair/show";
 	}
+	
+	@GetMapping("detail/{id}")
+	public String detial(@PathVariable Integer id,ModelMap modelMap){
+		Affair affair = affairService.getAffairDetailByAffairId( id );
+		System.out.print(affair.getAffairChains().size());
+		modelMap.addAttribute("affair", affair);
+		return "affair/detail";
+	}
+	
+	
 }

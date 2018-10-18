@@ -32,7 +32,7 @@
 							<div class="col-md-6 text-right">
 								<input type="submit" class="btn btn-success" value="新增"/>
 								<select name="affairModuleId" class="form-control">
-									<#list affairModules as affairModule>
+									<#list allAffairModules as affairModule>
 										<option value="${affairModule.affairModuleId}">${affairModule.affairModuleName}</option>
 									</#list>
 								</select>
